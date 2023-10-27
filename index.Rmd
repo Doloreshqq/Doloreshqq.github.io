@@ -1,0 +1,25 @@
+---
+title: "Qin Huang"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+\* This is a website for p8105 hw4.
+<p></p>
+
+<div style="text-align: center;">
+  <p><strong><font size = '4.5'>Welcome to Qin Huang's website 😃!</strong></p>
+  <img src="images/selfie.png" style="width:45%;" />
+</div>
+
+# About me
+I'm currently a first-year master student majoring in Biostatistics.
+
+
+# More
+If you want to learn more about me, you can navigate to my resume or find my contact information on navigation site. Or you could go through my work on this assignment where I built dashboards with plotly. Here're some useful links for you:
+<p></p>
+* [Resume](Resume.html)
