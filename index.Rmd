@@ -7,7 +7,7 @@ output:
     theme: cerulean
 ---
 
-\* This is a website for p8105 hw4.
+\* This is a website for p8105 hw4 (qh2284).
 <p></p>
 
 <div style="text-align: center;">
@@ -16,10 +16,11 @@ output:
 </div>
 
 # About me
-I'm currently a first-year master student majoring in Biostatistics.
+I'm currently a first-year master student majoring in Biostatistics at Columbia University Mailman School of Public Health.
 
 
 # More
 If you want to learn more about me, you can navigate to my resume or find my contact information on navigation site. Or you could go through my work on this assignment where I built dashboards with plotly. Here're some useful links for you:
 <p></p>
 * [Resume](Resume.html)
+* [Dashboard](dashboard.html)
