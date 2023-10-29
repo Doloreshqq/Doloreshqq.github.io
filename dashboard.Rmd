@@ -1,8 +1,98 @@
 ---
-title: "Dashboard Problem 2"
+title: "Problem 2"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: cerulean
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
 ---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+data("ny_noaa")
+```
+
+## Column {data-width="650"}
+
+In this project, we worked on `ny_noaa` dataset without NAs and work on ids having observation greater than 10800.
+
+```{r}
+ny = ny_noaa %>%
+  na.omit() %>%
+  group_by(id) %>%
+  mutate(n = n()) %>%
+  filter(n > 10800) %>%
+  separate(date, into = c("year", "month", "day"), sep = "-") %>%
+  mutate(date = paste0(year, '-', month)) %>%
+  group_by(id,date,year,month) %>%
+  summarise(mean_prcp = mean(prcp,na.rm = T), mean_snow = mean(snow,na.rm = T), mean_snwd = mean(snwd,na.rm = T), mean_tmax = mean(as.numeric(tmax),na.rm = T), mean_tmin = mean(as.numeric(tmin),na.rm = T))
+```
+
+### Chart A
+
+```{r}
+ny_scat = ny %>%
+  plot_ly(x = ~mean_tmin,
+    y = ~mean_tmax,
+    color = ~mean_prcp,
+    type = "scatter",
+    colors = "viridis",
+    text = ~mean_prcp, alpha = 0.3) %>%
+  layout(
+    title = "Scatter plot for mean_tmax vs mean_tmin)",
+    xaxis = list(title = "mean_tmin"),
+    yaxis = list(title = "mean_tmax")
+  )
+
+ny_scat
+```
+
+## Column {data-width="350"}
+
+### Chart B
+
+```{r}
+# Reorder 'id' factor
+ny_sorted = ny %>%
+  group_by(id) %>%
+  summarize(mean_snow = mean(mean_snow)) %>%
+  arrange(mean_snow) %>%
+  pull(id)
+
+# Create the box plot
+ny_box = ny %>%
+  mutate(id = factor(id, levels = ny_sorted)) %>%
+  plot_ly(x = ~id, y = ~mean_snow, color = ~id, type = "box", colors = "viridis") %>%
+  layout(
+    title = "Box plot for average snowfall",
+    xaxis = list(title = "ID"),
+    yaxis = list(title = "Average snowfall (mm)")
+  )
+
+ny_box
+
+```
+
+### Chart C
+
+```{r}
+ny_sum = ny %>%
+  group_by(id) %>%
+  summarize(sum_snwd = sum(mean_snwd)) %>%
+  arrange(sum_snwd)
+
+ny_sum_sorted = ny_sum[order(ny_sum$sum_snwd, decreasing = FALSE),]
+
+ny_bar = ny_sum_sorted %>%
+  plot_ly(x = ~id, y = ~sum_snwd, color = ~sum_snwd, type = "bar", colors = "viridis") %>%
+  layout(
+    title = "Bar plot for total snow depth",
+    xaxis = list(title = "ID"),
+    yaxis = list(title = "Total snow depth (mm)")
+  )
+
+ny_bar
+```
