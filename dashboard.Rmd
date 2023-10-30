@@ -84,10 +84,11 @@ ny_sum = ny %>%
   summarize(sum_snwd = sum(mean_snwd)) %>%
   arrange(sum_snwd)
 
-ny_sum_sorted = ny_sum[order(ny_sum$sum_snwd, decreasing = FALSE),]
+ny_sum_sorted = ny_sum %>% 
+  mutate(id = fct_reorder(id,sum_snwd))
 
 ny_bar = ny_sum_sorted %>%
-  plot_ly(x = ~id, y = ~sum_snwd, color = ~sum_snwd, type = "bar", colors = "viridis") %>%
+  plot_ly(x = ~id, y = ~sum_snwd, color = ~id, type = "bar", colors = "viridis") %>%
   layout(
     title = "Bar plot for total snow depth",
     xaxis = list(title = "ID"),
