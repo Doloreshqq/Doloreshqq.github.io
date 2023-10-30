@@ -42,7 +42,7 @@ ny_scat = ny %>%
     colors = "viridis",
     text = ~mean_prcp, alpha = 0.3) %>%
   layout(
-    title = "Scatter plot for mean_tmax vs mean_tmin)",
+    title = "Scatter plot for mean_tmax vs mean_tmin",
     xaxis = list(title = "mean_tmin"),
     yaxis = list(title = "mean_tmax")
   )
