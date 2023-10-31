@@ -34,6 +34,7 @@ ny = ny_noaa %>%
 ### Chart A
 
 ```{r}
+# We want to find out the relation between the precipitation with tmax and tmin
 ny_scat = ny %>%
   plot_ly(x = ~mean_tmin,
     y = ~mean_tmax,
@@ -48,6 +49,8 @@ ny_scat = ny %>%
   )
 
 ny_scat
+
+# Comment: We could observe that when the tmax and tmin increase, mean precipitation have higher probabilities to be larger.
 ```
 
 ## Column {data-width="350"}
@@ -55,6 +58,8 @@ ny_scat
 ### Chart B
 
 ```{r}
+# We want to study the distribution of snow fall among different id
+
 # Reorder 'id' factor
 ny_sorted = ny %>%
   group_by(id) %>%
@@ -74,11 +79,13 @@ ny_box = ny %>%
 
 ny_box
 
+# Comment: We could observe that USC00306314 has the largest spread and largest mean while USW0094789 has the smallest spread and smallest mean. The difference may be because of the location of these ID.
 ```
 
 ### Chart C
 
 ```{r}
+# We want to study the total study snow depth among each id.
 ny_sum = ny %>%
   group_by(id) %>%
   summarize(sum_snwd = sum(mean_snwd)) %>%
@@ -96,4 +103,6 @@ ny_bar = ny_sum_sorted %>%
   )
 
 ny_bar
+
+# We could conclude that USC00306314 has the largest snow depth while USW0094789 has the smallest snow depth. This meets the observation in the box plot.
 ```
