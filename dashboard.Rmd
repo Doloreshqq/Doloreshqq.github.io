@@ -15,9 +15,9 @@ library(plotly)
 data("ny_noaa")
 ```
 
-## Column {data-width="650"}
-
 In this project, we worked on `ny_noaa` dataset without NAs and work on ids having observation greater than 10800.
+
+## Column {data-width="650"}
 
 ```{r}
 ny = ny_noaa %>%
